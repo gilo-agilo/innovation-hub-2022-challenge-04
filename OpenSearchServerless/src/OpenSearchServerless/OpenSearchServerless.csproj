@@ -13,6 +13,8 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="7.1.0" />
+        <PackageReference Include="Amazon.Lambda.S3Events" Version="2.0.1" />
         <PackageReference Include="NEST" Version="7.10.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 </Project>

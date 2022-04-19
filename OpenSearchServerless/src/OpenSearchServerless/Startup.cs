@@ -16,13 +16,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
-        
-        var pool = new SingleNodeConnectionPool(new Uri("https://search-testdomain-6ymb6zjdmjqxog7kln72dpya7m.eu-west-1.es.amazonaws.com"));
-        var settings = new ConnectionSettings(pool)
-            .BasicAuthentication("testdomainUser", "Qwerty1234!")
-            .DefaultIndex("books");
-        var client = new ElasticClient(settings);
-        services.AddSingleton(client);
+        services.AddSingleton(ElasticSearchClient.Instance);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
