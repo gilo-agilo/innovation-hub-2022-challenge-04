@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: An AWS Serverless Application that uses the ASP.NET Core framework running in Amazon Lambda.
+Parameters: {}
+Conditions: {}
+Resources:
+  AspNetCoreFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: OpenSearchServerless::OpenSearchServerless.LambdaEntryPoint::FunctionHandlerAsync
+      Runtime: dotnet6
+      CodeUri: ''
+      MemorySize: 256
+      Timeout: 30
+      Role: null
+      Policies:
+        - AWSLambda_FullAccess
+      Events:
+        ProxyResource:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+        RootResource:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
+  S3FileUploadTrigger:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: OpenSearchServerless::OpenSearchServerless.Triggers.S3Trigger::FunctionHandler
+      Runtime: dotnet6
+      CodeUri: ''
+      MemorySize: 256
+      Timeout: 30
+      Role: null
+      Policies:
+        - AWSLambda_FullAccess
+      Events:
+        FileUploaded:
+          Type: S3
+          Properties:
+            Bucket: !Ref SrcBucket
+            Events: s3:ObjectCreated:*
+  SrcBucket:
+    Type: AWS::S3::Bucket
+    BucketName: opensearchserverless-sourcebucket
+Outputs:
+  ApiURL:
+    Description: API endpoint URL for Prod environment
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/'
