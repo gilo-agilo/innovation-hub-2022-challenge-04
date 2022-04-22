@@ -1,0 +1,21 @@
+apiVersion: skaffold/v2beta28
+kind: Config
+metadata:
+  name: elasticsearch
+build:
+  artifacts:
+  - image: webapi
+    context: ./
+    docker:
+      dockerfile: ./ElasticSearch/Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - elasticsearch-deployment.yaml
+    - elasticsearch-service.yaml
+    - es-network-networkpolicy.yaml
+    - esdata-persistentvolumeclaim.yaml
+    - kibana-deployment.yaml
+    - kibana-service.yaml
+    - webapi-deployment.yaml
+    - webapi-service.yaml
