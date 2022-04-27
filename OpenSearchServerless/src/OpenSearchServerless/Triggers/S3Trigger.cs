@@ -57,19 +57,34 @@ public class S3Trigger
             using (var respStream = resp.ResponseStream)
             using (var reader = new StreamReader(respStream))
             {
-                var content = await reader.ReadToEndAsync();
-                var book = JsonConvert.DeserializeObject<Book[]>(content);
-                var indexResponse = await ElasticSearchClient.Instance.IndexManyAsync<Book>(book);
-                if (indexResponse.Errors)
+                var currLine = 1;
+                while (reader.Peek() >= 0)
                 {
-                    foreach (var itemError in indexResponse.ItemsWithErrors)
+                    var str = await reader.ReadLineAsync();
+
+                    if (str == null)
                     {
-                        context.Logger.LogError($"Error during indexing document {objectKey}: {itemError.Error}");
+                        context.Logger.LogInformation("Skipping empty line");
+                        continue;
                     }
-                    return null;
+                    
+                    context.Logger.LogInformation($"Going to deserealize line: ${str}");
+                    var book = JsonConvert.DeserializeObject<Book>(str);
+                    if (book == null)
+                    {
+                        context.Logger.LogInformation("Skipping empty item");
+                        continue;
+                    }
+                    var idxResp = await ElasticSearchClient.Instance.IndexDocumentAsync(book);
+                    
+                    context.Logger.LogInformation(idxResp.IsValid
+                        ? $"Indexing of {currLine} item is succeeded. Item id = {book.Isbn}"
+                        : $"Indexing of {currLine} item is failed. Item id = {book.Isbn}");
+                    
+                    currLine++;
                 }
 
-                context.Logger.LogInformation($"Index succeeded");
+                context.Logger.LogInformation($"Index completed");
                 return "ok";
             }
         }
