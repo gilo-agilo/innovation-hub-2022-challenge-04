@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearchServerless", "OpenSearchServerless\OpenSearchServerless.csproj", "{CA83698B-A645-453E-B007-F1A13E40234F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearchServerless", "src\OpenSearchServerless\OpenSearchServerless.csproj", "{CA83698B-A645-453E-B007-F1A13E40234F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearchServerless.Tests", "OpenSearchServerless.Tests\OpenSearchServerless.Tests.csproj", "{EF10DFC9-D4ED-43FE-9316-DB5900CAF25D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearchServerless.Tests", "test\OpenSearchServerless.Tests\OpenSearchServerless.Tests.csproj", "{EF10DFC9-D4ED-43FE-9316-DB5900CAF25D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearchPerformanceTest", "OpenSearchPerformanceTest\OpenSearchPerformanceTest.csproj", "{FCF56510-80E8-4F79-A57A-32DF43561639}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearchPerformanceTest", "test\OpenSearchPerformanceTest\OpenSearchPerformanceTest.csproj", "{FCF56510-80E8-4F79-A57A-32DF43561639}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElasticSearch", "ElasticSearch\ElasticSearch.csproj", "{7BBE6EB8-2ACA-4C5A-971F-C4809040B84C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElasticSearch", "src\ElasticSearch\ElasticSearch.csproj", "{7BBE6EB8-2ACA-4C5A-971F-C4809040B84C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearch", "OpenSearch\OpenSearch.csproj", "{B4F1543C-A880-4EDE-A174-6D63A6E21A0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearch", "src\OpenSearch\OpenSearch.csproj", "{B4F1543C-A880-4EDE-A174-6D63A6E21A0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSearch.Models", "src\OpenSearch.Models\OpenSearch.Models.csproj", "{233A0EBD-9064-4586-A67A-9E22EB036787}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{B4F1543C-A880-4EDE-A174-6D63A6E21A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4F1543C-A880-4EDE-A174-6D63A6E21A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4F1543C-A880-4EDE-A174-6D63A6E21A0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{233A0EBD-9064-4586-A67A-9E22EB036787}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{233A0EBD-9064-4586-A67A-9E22EB036787}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{233A0EBD-9064-4586-A67A-9E22EB036787}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{233A0EBD-9064-4586-A67A-9E22EB036787}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
