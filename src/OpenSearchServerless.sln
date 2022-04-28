@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearchServerless", "OpenSearchServerless\src\OpenSearchServerless\OpenSearchServerless.csproj", "{CA83698B-A645-453E-B007-F1A13E40234F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearchServerless", "OpenSearchServerless\OpenSearchServerless.csproj", "{CA83698B-A645-453E-B007-F1A13E40234F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearchServerless.Tests", "OpenSearchServerless\test\OpenSearchServerless.Tests\OpenSearchServerless.Tests.csproj", "{EF10DFC9-D4ED-43FE-9316-DB5900CAF25D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearchServerless.Tests", "OpenSearchServerless.Tests\OpenSearchServerless.Tests.csproj", "{EF10DFC9-D4ED-43FE-9316-DB5900CAF25D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSearchPerformanceTest", "OpenSearchPerformanceTest\OpenSearchPerformanceTest.csproj", "{FCF56510-80E8-4F79-A57A-32DF43561639}"
 EndProject
