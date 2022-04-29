@@ -17,4 +17,7 @@
         <PackageReference Include="NEST" Version="7.10.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\OpenSearch.Models\OpenSearch.Models.csproj" />
+    </ItemGroup>
 </Project>

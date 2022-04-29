@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Nest;
-using OpenSearch.Model;
+using OpenSearch.Models;
 
 namespace OpenSearch.Controllers;
 

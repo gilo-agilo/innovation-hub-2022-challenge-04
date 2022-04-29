@@ -3,7 +3,7 @@ using Amazon.Lambda.S3Events;
 using Amazon.S3;
 using Nest;
 using Newtonsoft.Json;
-using OpenSearchServerless.Model;
+using OpenSearch.Models;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 

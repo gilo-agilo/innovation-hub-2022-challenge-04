@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Nest;
-using OpenSearchServerless.Model;
+using OpenSearch.Models;
 
 namespace OpenSearchServerless.Controllers;
 

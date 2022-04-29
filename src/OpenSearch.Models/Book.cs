@@ -1,4 +1,4 @@
-namespace OpenSearchServerless.Model;
+namespace OpenSearch.Models;
 
 public class Book
 {
