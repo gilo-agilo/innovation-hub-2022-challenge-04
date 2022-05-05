@@ -1,7 +1,7 @@
 using Elasticsearch.Net;
 using Nest;
 
-namespace OpenSearchServerless;
+namespace OpenSearchServerless.Services;
 
 public class ElasticSearchClient
 {

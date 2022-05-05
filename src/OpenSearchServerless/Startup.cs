@@ -1,5 +1,6 @@
 ﻿using Elasticsearch.Net;
 using Nest;
+using OpenSearchServerless.Services;
 
 namespace OpenSearchServerless;
 

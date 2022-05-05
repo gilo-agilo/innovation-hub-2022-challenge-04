@@ -4,6 +4,7 @@ using Amazon.S3;
 using Nest;
 using Newtonsoft.Json;
 using OpenSearch.Models;
+using OpenSearchServerless.Services;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
@@ -58,15 +59,26 @@ public class S3Trigger
             using (var reader = new StreamReader(respStream))
             {
                 var content = await reader.ReadToEndAsync();
-                var asset = JsonConvert.DeserializeObject<Asset[]>(content);
-                var indexResponse = await ElasticSearchClient.Instance.IndexManyAsync<Asset>(asset);
-                if (indexResponse.Errors)
+                var assets = JsonConvert.DeserializeObject<Asset[]>(content);
+
+
+                if (assets != null)
                 {
-                    foreach (var itemError in indexResponse.ItemsWithErrors)
+                    foreach (var asset in assets)
                     {
-                        context.Logger.LogError($"Error during indexing document {objectKey}: {itemError.Error}");
+                        asset.ImageVector = await ImageRecognitionClient.GetImageVector(asset.Title, asset.ImageUrl);
                     }
-                    return null;
+
+                    var indexResponse = await ElasticSearchClient.Instance.IndexManyAsync(assets);
+                    if (indexResponse.Errors)
+                    {
+                        foreach (var itemError in indexResponse.ItemsWithErrors)
+                        {
+                            context.Logger.LogError($"Error during indexing document {objectKey}: {itemError.Error}");
+                        }
+
+                        return null;
+                    }
                 }
 
                 context.Logger.LogInformation($"Index succeeded");
