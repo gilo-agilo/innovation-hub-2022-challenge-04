@@ -58,8 +58,8 @@ public class S3Trigger
             using (var reader = new StreamReader(respStream))
             {
                 var content = await reader.ReadToEndAsync();
-                var book = JsonConvert.DeserializeObject<Book[]>(content);
-                var indexResponse = await ElasticSearchClient.Instance.IndexManyAsync<Book>(book);
+                var asset = JsonConvert.DeserializeObject<Asset[]>(content);
+                var indexResponse = await ElasticSearchClient.Instance.IndexManyAsync<Asset>(asset);
                 if (indexResponse.Errors)
                 {
                     foreach (var itemError in indexResponse.ItemsWithErrors)

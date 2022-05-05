@@ -12,7 +12,7 @@ public class ElasticSearchClient
         var pool = new SingleNodeConnectionPool(new Uri("https://search-testdomain-6ymb6zjdmjqxog7kln72dpya7m.eu-west-1.es.amazonaws.com"));
         var settings = new ConnectionSettings(pool)
             .BasicAuthentication("testdomainUser", "Qwerty1234!")
-            .DefaultIndex("books");
+            .DefaultIndex("assets");
         Instance = new ElasticClient(settings);
     }
 }
