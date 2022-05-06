@@ -1,18 +1,18 @@
 using Elasticsearch.Net;
 using Nest;
 
-namespace OpenSearchServerless;
+namespace OpenSearchServerless.Services;
 
-public class ElasticSearchClient
+public class OpenSearchClient
 {
     public static ElasticClient Instance { get; }
 
-    static ElasticSearchClient()
+    static OpenSearchClient()
     {
         var pool = new SingleNodeConnectionPool(new Uri("https://search-testdomain-6ymb6zjdmjqxog7kln72dpya7m.eu-west-1.es.amazonaws.com"));
         var settings = new ConnectionSettings(pool)
             .BasicAuthentication("testdomainUser", "Qwerty1234!")
-            .DefaultIndex("books");
+            .DefaultIndex("assets");
         Instance = new ElasticClient(settings);
     }
 }

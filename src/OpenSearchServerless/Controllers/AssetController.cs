@@ -1,43 +1,43 @@
 using Microsoft.AspNetCore.Mvc;
 using Nest;
-using OpenSearchServerless.Model;
+using OpenSearch.Models;
 
 namespace OpenSearchServerless.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class BookController : ControllerBase
+public class AssetController : ControllerBase
 {
     private readonly ElasticClient _elasticClient;
 
-    public BookController(ElasticClient elasticClient)
+    public AssetController(ElasticClient elasticClient)
     {
         _elasticClient = elasticClient;
     }
 
     // GET
-    [HttpGet(Name = "GetBooks")]
+    [HttpGet(Name = "GetAssets")]
     public IActionResult Get()
     {
-        var books = _elasticClient.Search<Book>(
+        var assets = _elasticClient.Search<Asset>(
             x => x.Query(q => q.MatchAll()));
 
-        if (books.IsValid)
-            return Ok(books.Documents);
+        if (assets.IsValid)
+            return Ok(assets.Documents);
 
-        return BadRequest(books.DebugInformation);
+        return BadRequest(assets.DebugInformation);
     }
 
     [HttpPost(Name = "Search")]
     public IActionResult Search([FromBody] string term)
     {
-        var res = _elasticClient.Search<Book>(
+        var result = _elasticClient.Search<Asset>(
             x => x.Query(q =>
                 q.QueryString(y => y.Query(term).Fields(fs => fs.Fields(f => f.Title)))));
 
-        if (res.IsValid)
-            return Ok(res.Documents);
+        if (result.IsValid)
+            return Ok(result.Documents);
 
-        return BadRequest(res.DebugInformation);
+        return BadRequest(result.DebugInformation);
     }
 }
