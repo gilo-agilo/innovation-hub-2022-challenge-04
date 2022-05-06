@@ -69,7 +69,7 @@ public class S3Trigger
                         asset.ImageVector = await ImageRecognitionClient.GetImageVector(asset.Title, asset.ImageUrl);
                     }
 
-                    var indexResponse = await ElasticSearchClient.Instance.IndexManyAsync(assets);
+                    var indexResponse = await OpenSearchClient.Instance.IndexManyAsync(assets);
                     if (indexResponse.Errors)
                     {
                         foreach (var itemError in indexResponse.ItemsWithErrors)
