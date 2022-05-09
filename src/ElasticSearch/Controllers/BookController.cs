@@ -1,4 +1,4 @@
-using ElasticSearch.Model;
+using OpenSearch.Models;
 using Microsoft.AspNetCore.Mvc;
 using Nest;
 

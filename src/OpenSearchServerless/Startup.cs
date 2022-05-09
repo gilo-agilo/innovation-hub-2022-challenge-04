@@ -1,5 +1,6 @@
 ﻿using Elasticsearch.Net;
 using Nest;
+using OpenSearchServerless.Services;
 
 namespace OpenSearchServerless;
 
@@ -16,7 +17,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
-        services.AddSingleton(ElasticSearchClient.Instance);
+        services.AddSingleton(OpenSearchClient.Instance);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

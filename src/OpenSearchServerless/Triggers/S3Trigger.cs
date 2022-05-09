@@ -3,7 +3,8 @@ using Amazon.Lambda.S3Events;
 using Amazon.S3;
 using Nest;
 using Newtonsoft.Json;
-using OpenSearchServerless.Model;
+using OpenSearch.Models;
+using OpenSearchServerless.Services;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
@@ -57,34 +58,30 @@ public class S3Trigger
             using (var respStream = resp.ResponseStream)
             using (var reader = new StreamReader(respStream))
             {
-                var currLine = 1;
-                while (reader.Peek() >= 0)
-                {
-                    var str = await reader.ReadLineAsync();
+                var content = await reader.ReadToEndAsync();
+                var assets = JsonConvert.DeserializeObject<Asset[]>(content);
 
-                    if (str == null)
+
+                if (assets != null)
+                {
+                    foreach (var asset in assets)
                     {
-                        context.Logger.LogInformation("Skipping empty line");
-                        continue;
+                        asset.ImageVector = await ImageRecognitionClient.GetImageVector(asset.Title, asset.ImageUrl);
                     }
-                    
-                    context.Logger.LogInformation($"Going to deserealize line: ${str}");
-                    var book = JsonConvert.DeserializeObject<Book>(str);
-                    if (book == null)
+
+                    var indexResponse = await OpenSearchClient.Instance.IndexManyAsync(assets);
+                    if (indexResponse.Errors)
                     {
-                        context.Logger.LogInformation("Skipping empty item");
-                        continue;
+                        foreach (var itemError in indexResponse.ItemsWithErrors)
+                        {
+                            context.Logger.LogError($"Error during indexing document {objectKey}: {itemError.Error}");
+                        }
+
+                        return null;
                     }
-                    var idxResp = await ElasticSearchClient.Instance.IndexDocumentAsync(book);
-                    
-                    context.Logger.LogInformation(idxResp.IsValid
-                        ? $"Indexing of {currLine} item is succeeded. Item id = {book.Isbn}"
-                        : $"Indexing of {currLine} item is failed. Item id = {book.Isbn}");
-                    
-                    currLine++;
                 }
 
-                context.Logger.LogInformation($"Index completed");
+                context.Logger.LogInformation($"Index succeeded");
                 return "ok";
             }
         }
