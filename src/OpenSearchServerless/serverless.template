@@ -46,6 +46,38 @@ Resources:
   SrcBucket:
     Type: AWS::S3::Bucket
     BucketName: opensearchserverless-sourcebucket
+  ElasticSearchDeliveryStream:
+    Type: AWS::KinesisFirehose::DeliveryStream
+    Properties:
+      DeliveryStreamName: "kinesis-opensearch-testindex2-stream2"
+      DeliveryStreamType: "DirectPut"
+      AmazonopensearchserviceDestinationConfiguration:
+        BufferingHints:
+          IntervalInSeconds: 60
+          SizeInMBs: 50
+        CloudWatchLoggingOptions:
+          Enabled: true
+          LogGroupName: "deliverystream"
+          LogStreamName: "elasticsearchDelivery"
+        DomainARN: "arn:aws:es:eu-west-1:439223726434:domain/testdomain-kinesis"
+        IndexName: "testindex2"
+        IndexRotationPeriod: "NoRotation"
+        RetryOptions:
+          DurationInSeconds: "60"
+        RoleARN: "arn:aws:iam::439223726434:role/service-role/KinesisFirehoseServiceRole-kinesis-opens-eu-west-1-1651319750612"
+        S3BackupMode: "AllDocuments"
+        S3Configuration:
+          BucketARN: "arn:aws:s3:::opensearchserverless-kinesis-backup"
+          RoleARN: "arn:aws:iam::439223726434:role/service-role/KinesisFirehoseServiceRole-kinesis-opens-eu-west-1-1651319750612"
+          BufferingHints:
+            IntervalInSeconds: "60"
+            SizeInMBs: "50"
+          CompressionFormat: "UNCOMPRESSED"
+          Prefix: "firehose/"
+          CloudWatchLoggingOptions:
+            Enabled: true
+            LogGroupName: "deliverystream"
+            LogStreamName: "s3Backup"
 Outputs:
   ApiURL:
     Description: API endpoint URL for Prod environment
