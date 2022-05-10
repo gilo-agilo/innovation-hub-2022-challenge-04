@@ -49,7 +49,7 @@ Resources:
   ElasticSearchDeliveryStream:
     Type: AWS::KinesisFirehose::DeliveryStream
     Properties:
-      DeliveryStreamName: "kinesis-opensearch-testindex2-stream2"
+      DeliveryStreamName: "kinesis-opensearch-testindex2-stream"
       DeliveryStreamType: "DirectPut"
       AmazonopensearchserviceDestinationConfiguration:
         BufferingHints:
